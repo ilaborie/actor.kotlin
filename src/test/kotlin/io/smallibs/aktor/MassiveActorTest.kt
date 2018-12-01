@@ -37,13 +37,14 @@ class MassiveActorTest {
             system.actorFor<Boolean> { _, _ -> called.incrementAndGet() }
         }
 
-        stopWatch({"Submission"}) {
+
+        stopWatch({ "Submission" }) {
             repeat(messages) {
                 references.forEach { a -> a tell true }
             }
         }
 
-        stopWatch({"Execution of ${called.get().format()} messages using Threads"}) {
+        stopWatch({ "Execution of ${called.get().format()} messages using Threads" }) {
             await().atMost(FIVE_SECONDS).until {
                 called.get() == messages * actors
             }
@@ -61,13 +62,13 @@ class MassiveActorTest {
             system.actorFor<Boolean> { _, _ -> called.incrementAndGet() }
         }
 
-        stopWatch({"Submission"}) {
+        stopWatch({ "Submission" }) {
             repeat(messages) {
                 references.forEach { a -> a tell true }
             }
         }
 
-        stopWatch({"Execution of ${called.get().format()} messages using Coroutine"}) {
+        stopWatch({ "Execution of ${called.get().format()} messages using Coroutine" }) {
             await().atMost(FIVE_SECONDS).until {
                 called.get() == messages * actors
             }

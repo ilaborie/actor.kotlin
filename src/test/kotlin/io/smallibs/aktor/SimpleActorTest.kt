@@ -14,7 +14,7 @@ class SimpleActorTest {
         val system = ActorSystem.system("test")
 
         val called = AtomicBoolean(false)
-        val reference = system.actorFor<Boolean> { _, _ -> called.set(true) }
+        val reference = system.actorFor<Boolean> { _, _ -> called.set(true) } // FIXME { _, m -> called.set(m.content) }
 
         reference tell true
 

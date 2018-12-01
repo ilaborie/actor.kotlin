@@ -4,7 +4,7 @@ package io.smallibs.aktor
 
 typealias Receiver<T> = (Actor<T>, Envelop<T>) -> Unit
 
-class Behavior<T>(val receiver: Receiver<T>) {
+class Behavior<T>(val receiver: Receiver<T>) { // FIXME missing open ?
 
     fun onStart(actor: Actor<T>) {}
 

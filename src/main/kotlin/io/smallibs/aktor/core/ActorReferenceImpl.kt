@@ -12,9 +12,11 @@ data class ActorReferenceImpl<T>(val dispatcher: ActorDispatcher, override val a
         this.dispatcher.deliver(this, envelop)
     }
 
+    // FIXME not nullable
     internal fun <R> register(behavior: Behavior<R>, name: String?): ActorReference<R> =
         dispatcher.register(newChild(name), behavior).context.self
 
+    // FIXME not nullable
     private fun <R> newChild(name: String?): ActorReferenceImpl<R> =
         ActorReferenceImpl(dispatcher, this.address.newChild(name))
 

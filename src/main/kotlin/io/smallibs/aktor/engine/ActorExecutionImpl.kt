@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference
 internal class ActorExecutionImpl(private val runner: ActorRunner) :
     ActorExecution {
 
-    internal enum class Status { STOPPED, RUN }
+    internal enum class Status { STOPPED, RUN } // FIXME Status too generic => ActorStatus
 
     private val actors: MutableMap<ActorAddress, Pair<ActorImpl<*>, AtomicReference<Status>>> = HashMap()
 
@@ -19,7 +19,7 @@ internal class ActorExecutionImpl(private val runner: ActorRunner) :
 
     override fun manage(actor: ActorImpl<*>) =
         this.schedulingService.execute {
-            actors[actor.context.self.address] = Pair(actor, AtomicReference(Status.STOPPED))
+            actors[actor.context.self.address] = actor to AtomicReference(Status.STOPPED)
         }
 
     override fun notifyEpoch(address: ActorAddress) =
